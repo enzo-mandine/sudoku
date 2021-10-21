@@ -1,4 +1,5 @@
 from re import split
+import pygame
 
 
 class Grid:
@@ -9,15 +10,15 @@ class Grid:
         # init
         self._get_file_content()
         self._set_underlying_data()
-        self._print_grid()
+        # self._print_grid()
 
     def _get_file_content(self) -> None:
         """ Open a text file and parse it to data """
 
         while True:
             # file_name = str(input("Enter your file name (only *.txt files allowed):\n"))
-            # file_name = str(input("Enter your file name:\n"))
-            file_name = "sample.txt"
+            file_name = str(input("Enter your file name:\n"))
+            # file_name = "sample.txt"
             try:
                 file = open('./' + file_name, 'r')
                 read = file.read()
@@ -48,10 +49,6 @@ class Grid:
     def _print_grid(self) -> None:
         """ print the grid row by row """
 
-        # print("---------------------------")
-        # for i in range(9):
-        #     print(self.data[i])
-
         s = ''
         for i in range(9):
             for j in range(9):
@@ -65,13 +62,22 @@ class Grid:
         print(s)
         return
 
-    # def _print_grid(self) -> None:
-    #     """ print the grid row by row """
-    #
-    #     print('---------------------------')
-    #     for row in self.data:
-    #         print(row)
-    #     return
+    def gui(self):
+        pygame.init()
+        run = True
+        screen = pygame.display.set_mode(size=(900, 900), flags=0, depth=0, display=0, vsync=0)
+        while run:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = false
+            screen.fill((255, 255, 255))
+            i = 0
+            while i <= 900:
+                pygame.draw.rect(screen, (0, 0, 0), (i, 0, 5, 900))
+                pygame.draw.rect(screen, (0, 0, 0), (0, i, 900, 5))
+                i += 100
+            pygame.display.update()
+        pygame.quit()
 
     def _get_empty_space(self) -> tuple or None:
         """ return a position of the first empty space found """
@@ -142,7 +148,8 @@ class Grid:
 
         # if selected is Null we are done
         if not selected:
-            return self._print_grid()
+            # return self._print_grid()
+            return True
         else:
 
             # else use those coord
@@ -169,4 +176,6 @@ class Grid:
 
 
 if __name__ == "__main__":
-    Grid().solve()
+    sudoku = Grid()
+    sudoku.solve()
+    sudoku.gui()
