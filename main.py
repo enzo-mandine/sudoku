@@ -1,11 +1,17 @@
+import time
 from re import split
 import pygame
+from pygame.locals import *
 
 
 class Grid:
     def __init__(self):
         self.data = []
         self.file_content = None
+
+        self.BLACK = (0, 0, 0)
+        self.RED = (255, 0, 0)
+        self.BACKGROUND = (255, 255, 255)
 
         # init
         self._get_file_content()
@@ -17,8 +23,8 @@ class Grid:
 
         while True:
             # file_name = str(input("Enter your file name (only *.txt files allowed):\n"))
-            file_name = str(input("Enter your file name:\n"))
-            # file_name = "sample.txt"
+            # file_name = str(input("Enter your file name:\n"))
+            file_name = "sample.txt"
             try:
                 file = open('./' + file_name, 'r')
                 read = file.read()
@@ -62,20 +68,50 @@ class Grid:
         print(s)
         return
 
+    def _draw(self, screen):
+        font = pygame.font.SysFont(None, 48)
+
+        i, j = 0, 0
+        for y in range(9):
+            for x in range(9):
+                if self.file_content[y][x] == str(self.data[y][x]):
+                    screen.blit(font.render(str(self.data[y][x]), True, self.RED), (i + 40, j + 40))
+                else:
+                    screen.blit(font.render(str(self.data[y][x]), True, self.BLACK), (i + 40, j + 40))
+                i += 100
+            i = 0
+            j += 100
+
+        i = 0
+        while i <= 900:
+            if i == 0:
+                pass
+            if i == 900:
+                pygame.draw.rect(screen, self.BLACK, (0, i - 5, 900, 5))
+                pygame.draw.rect(screen, self.BLACK, (i - 5, 0, 5, 900))
+            else:
+                pygame.draw.rect(screen, self.BLACK, (i, 0, 5, 900))
+                pygame.draw.rect(screen, self.BLACK, (0, i, 900, 5))
+            i += 100
+
+        return None
+
     def gui(self):
         pygame.init()
         run = True
         screen = pygame.display.set_mode(size=(900, 900), flags=0, depth=0, display=0, vsync=0)
+
+        # text part:
+
+        # sysfont = pygame.font.get_default_font()
         while run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = false
-            screen.fill((255, 255, 255))
-            i = 0
-            while i <= 900:
-                pygame.draw.rect(screen, (0, 0, 0), (i, 0, 5, 900))
-                pygame.draw.rect(screen, (0, 0, 0), (0, i, 900, 5))
-                i += 100
+                    run = False
+
+            screen.fill(self.BACKGROUND)
+            self._draw(screen)
+
             pygame.display.update()
         pygame.quit()
 

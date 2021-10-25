@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AmazingMazes/.idea/AmazingMazes.iml" filepath="$PROJECT_DIR$/../AmazingMazes/.idea/AmazingMazes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ants/.idea/ants.iml" filepath="$PROJECT_DIR$/../ants/.idea/ants.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/pythonProject3.iml" filepath="$PROJECT_DIR$/.idea/pythonProject3.iml" />
     </modules>
   </component>
