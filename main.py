@@ -147,7 +147,6 @@ class MyGui:
                 self.draw_input()
         except AttributeError:
             return False
-
         return True
 
 
