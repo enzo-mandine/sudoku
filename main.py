@@ -1,10 +1,10 @@
 import sys
 import time
-from re import split
 import pygame
+from re import split
 
 
-class PyGame:
+class MyGui:
     def __init__(self):
         pygame.init()
 
@@ -12,8 +12,10 @@ class PyGame:
         self.H = 900
         self.W = 900
         self.clock = pygame.time.Clock()
+
         self.data = None
         self.file_content = None
+
         self.font = pygame.font.SysFont('Roboto', 48)
         self.screen = pygame.display.set_mode(size=(self.H, self.W), flags=0, depth=0, display=0, vsync=0)
         self.solver = SudokuSolver()
@@ -156,6 +158,7 @@ class SudokuSolver:
 
     def _set_file_content(self, file_name: str) -> None:
         """ Open a text file and parse it to data """
+
         file_name = file_name.lower()
         try:
             file = open('./' + file_name, 'r')
@@ -295,11 +298,7 @@ class SudokuSolver:
 
 
 def main():
-    # sudoku = SudokuSolver()
-    # sudoku.draw_solve()
-    # sudoku.draw_input()
-
-    pygame = PyGame()
+    pygame = MyGui()
     pygame.draw_input()
 
 
