@@ -133,7 +133,7 @@ class MyGui:
 
         pygame.quit()
 
-    def close_event(self, event) -> None:
+    def close_event(self, event) -> bool:
         try:
             if event.type == pygame.QUIT:
                 self.run = False
@@ -141,7 +141,7 @@ class MyGui:
         except AttributeError:
             return False
 
-    def return_event(self, event) -> None:
+    def return_event(self, event) -> bool:
         try:
             if event.key == pygame.K_ESCAPE:
                 self.draw_input()
